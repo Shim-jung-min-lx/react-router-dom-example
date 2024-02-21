@@ -1,8 +1,25 @@
 import React from "react";
 import { createStore } from "redux";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import store from './store';
-import { up } from './counterSlice';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counterSlice',
+  initialState: { value: 0 },
+  reducers: {
+    up: (state, action) => {
+      console.log(action);
+      state.value = state.value + action.payload;
+    }
+  }
+});
+
+const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer
+  }
+});
+
 /* 
 function reducer(state, action) {
   if (action.type === 'up') {
@@ -20,11 +37,10 @@ function Counter() {
   return <div>
     <button onClick={() => {
       // dispatch({ type: 'counterSlice/up', step: 2 });
-      dispatch(up(2)); // 단일 파라미터는 payload로 정의됨
+      dispatch(counterSlice.actions.up(2)); // 단일 파라미터는 payload로 정의됨
     }}>+</button> {count}
   </div>
 }
-
 export default function App() {
   return (
     <Provider store={store}>

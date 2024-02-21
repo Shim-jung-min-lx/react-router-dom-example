@@ -1,0 +1,13 @@
+#container,
+#container>div {
+    border: 5px solid #ff6868;
+    margin: 10px;
+}
+
+.flex_ {
+    display: flex;
+}
+
+.flex_>div {
+    flex: 1;
+}
